@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-latest,   r: 'release'}
+          # - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           # - {os: ubuntu-latest,   r: 'release'}
@@ -44,17 +44,15 @@ jobs:
 #        run: (New-Object System.Net.WebClient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe/download', 'C:\JAGS-4.3.1.exe')
 #        shell: powershell
 
-      - name: Install JAGS on Windows
-        if: runner.os == 'Windows'
-        run: |
-          curl -L -o jags-installer.exe https://sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.1.exe/download
 
-      - name: Install JAGS silently on Windows
-        if: runner.os == 'Windows'
-        run: |
-          Start-Process -FilePath .\jags-installer.exe -ArgumentList "/S" -Wait
-        shell: pwsh
-
+    - name: Install JAGS
+      if: runner.os == 'Windows'
+      shell: powershell
+      run: |
+        $jagsUrl = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe/download"
+        $installerPath = "$env:RUNNER_TEMP\JAGS-4.3.1.exe"
+        Invoke-WebRequest -Uri $jagsUrl -OutFile $installerPath
+        Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
 
 #      - name: Install JAGS Windows
 #        if: runner.os == 'Windows'
