@@ -39,20 +39,14 @@ jobs:
         run: |
           brew install jags
 
-#      - name: Download JAGS Windows
-#        if: runner.os == 'Windows'
-#        run: (New-Object System.Net.WebClient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe/download', 'C:\JAGS-4.3.1.exe')
-#        shell: powershell
-
-
-    - name: Install JAGS
-      if: runner.os == 'Windows'
-      shell: powershell
-      run: |
-        $jagsUrl = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe/download"
-        $installerPath = "$env:RUNNER_TEMP\JAGS-4.3.1.exe"
-        Invoke-WebRequest -Uri $jagsUrl -OutFile $installerPath
-        Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+      - name: Install JAGS
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          $jagsUrl = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe/download"
+          $installerPath = "$env:RUNNER_TEMP\JAGS-4.3.1.exe"
+          Invoke-WebRequest -Uri $jagsUrl -OutFile $installerPath
+          Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
 
 #      - name: Install JAGS Windows
 #        if: runner.os == 'Windows'
