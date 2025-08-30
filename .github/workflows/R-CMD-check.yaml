@@ -47,13 +47,13 @@ jobs:
       - name: Install JAGS on Windows
         if: runner.os == 'Windows'
         run: |
-          Invoke-WebRequest -Uri https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe -OutFile jags-installer.exe
-          Start-Process -Wait -FilePath .\jags-installer.exe -ArgumentList "/S"
+          curl -L -o jags-installer.exe https://sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.1.exe/download
 
-      - name: Set JAGS_HOME
+      - name: Install JAGS silently on Windows
         if: runner.os == 'Windows'
-        run: echo "JAGS_HOME=C:\\Program Files\\JAGS\\JAGS-4.3.1" >> $GITHUB_ENV
-
+        run: |
+          Start-Process -FilePath .\jags-installer.exe -ArgumentList "/S" -Wait
+        shell: pwsh
 
 
 #      - name: Install JAGS Windows
