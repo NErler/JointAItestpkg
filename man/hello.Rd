@@ -8,7 +8,7 @@ Hello World Function}
 hello()
 }
 \value{
-Nothing, just prints "Hello, world!" to the console.
+The version number of rjags.
 }
 \description{
 Title
