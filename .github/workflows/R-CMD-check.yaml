@@ -45,7 +45,7 @@ jobs:
 
 
       - name: Install JAGS via Chocolatey
-        if runner.os == 'Windows'
+        if: runner.os == 'Windows'
         run: choco install jags -y
         shell: pwsh
 
